@@ -8,7 +8,6 @@
 *.obj
 
 workspace/pro
-*.engine
 .kiwi
 objs
 
