@@ -46,7 +46,7 @@ void perf() {
   for (int i = images.size(); i < batch; ++i) images.push_back(images[i % 3]);
 
   cpm::Instance<yolo::BoxArray, yolo::Image, yolo::Infer> cpmi;
-  bool ok = cpmi.start([] { return yolo::load("yolov8n.transd.engine", yolo::Type::V8); },
+  bool ok = cpmi.start([] { return yolo::load("yolov8n.engine", yolo::Type::V8); },
                        max_infer_batch);
 
   if (!ok) return;
@@ -71,7 +71,7 @@ void perf() {
 void batch_inference() {
   std::vector<cv::Mat> images{cv::imread("inference/car.jpg"), cv::imread("inference/gril.jpg"),
                               cv::imread("inference/group.jpg")};
-  auto yolo = yolo::load("yolov8n.transd.engine", yolo::Type::V8);
+  auto yolo = yolo::load("yolov8n.engine", yolo::Type::V8);
   if (yolo == nullptr) return;
 
   std::vector<yolo::Image> yoloimages(images.size());
@@ -101,7 +101,7 @@ void batch_inference() {
 
 void single_inference() {
   cv::Mat image = cv::imread("inference/car.jpg");
-  auto yolo = yolo::load("yolov8n-seg.b1.transd.engine", yolo::Type::V8Seg);
+  auto yolo = yolo::load("yolov8n-seg.engine", yolo::Type::V8Seg);
   if (yolo == nullptr) return;
 
   auto objs = yolo->forward(cvimg(image));
